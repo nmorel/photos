@@ -1,0 +1,15 @@
+.list {
+  margin-top: 2rem;
+  display: flex;
+  width: 100%;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.list-item {
+  width: 400px;
+  height: 400px;
+  background-color: whitesmoke;
+}
