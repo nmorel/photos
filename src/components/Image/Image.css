@@ -1,5 +1,13 @@
 .image-container {
   width: 400px;
   height: 400px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  border: 1px solid #ccc;
+}
+
+.image-container > img {
   background-color: whitesmoke;
+  margin: 0 auto;
 }
