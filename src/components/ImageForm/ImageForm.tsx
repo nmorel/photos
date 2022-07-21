@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormEventHandler } from "react";
 import loadImage from "blueimp-load-image";
 import { API_KEY, API_URL, BASE64_IMAGE_HEADER } from "../../constants";
@@ -6,6 +6,7 @@ import { Folder } from "../../types";
 import { addPhotoToFolder } from "../../storage";
 
 export function ImageForm({ folder }: { folder: Folder }) {
+  const queryClient = useQueryClient();
   const mutation = useMutation(
     async ({
       imageFile,
@@ -61,6 +62,7 @@ export function ImageForm({ folder }: { folder: Folder }) {
       {
         onSuccess() {
           formElement.reset();
+          queryClient.invalidateQueries(["folder", folder.id]);
         },
       }
     );

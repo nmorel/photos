@@ -1,21 +1,14 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-  NavLink,
 } from "react-router-dom";
 import { Folder } from "./components/Folder/Folder";
 import { getFolders } from "./storage";
 import { Nav } from "./components/Nav";
-
-// Create a client
 
 function App() {
   const foldersQuery = useQuery(["folders"], getFolders);
