@@ -32,6 +32,18 @@ export async function getFolder(id: string) {
   return folder;
 }
 
+export async function addFolder(name: string) {
+  const { folders } = await readStorage();
+  const folder = {
+    id: v4(),
+    name,
+    photos: [],
+  };
+  folders.push(folder);
+  await localforage.setItem(STORAGE_KEY, { folders });
+  return folder;
+}
+
 export async function addPhotoToFolder(base64: string, folderId: string) {
   const photo: Photo = {
     id: v4(),
