@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useParams } from "react-router-dom";
 import { getFolder } from "../../storage";
+import { Image } from "../Image";
 import { ImageForm } from "../ImageForm";
 import "./Folder.css";
 
@@ -27,8 +28,8 @@ export function Folder() {
       <ImageForm folder={folder} />
       <ul className="list">
         {folder.photos.map((photo) => (
-          <li key={photo.id} className="list-item">
-            <img src={photo.base64} />
+          <li key={photo.id}>
+            <Image photo={photo} />
           </li>
         ))}
       </ul>

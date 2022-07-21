@@ -1,3 +1,4 @@
+import { useDroppable } from "@dnd-kit/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import ReactModal from "react-modal";
@@ -5,6 +6,30 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { addFolder } from "../../storage";
 import { Folder } from "../../types";
 import "./Nav.css";
+
+function FolderLink({ folder }: { folder: Folder }) {
+  const { isOver, setNodeRef } = useDroppable({
+    id: folder.id,
+  });
+  const style = {
+    display: "block",
+    opacity: isOver ? 0.5 : 1,
+  };
+
+  return (
+    <NavLink
+      ref={setNodeRef}
+      to={`/${folder.id}`}
+      style={({ isActive }) =>
+        isActive
+          ? { fontWeight: "bold", color: "white", ...style }
+          : { color: "white", ...style }
+      }
+    >
+      {folder.name}
+    </NavLink>
+  );
+}
 
 function NewFolderForm({ onClose }: { onClose: () => void }) {
   const queryClient = useQueryClient();
@@ -66,16 +91,7 @@ export function Nav({ folders }: { folders: Folder[] }) {
       <ul>
         {folders.map((folder) => (
           <li key={folder.id}>
-            <NavLink
-              to={`/${folder.id}`}
-              style={({ isActive }) =>
-                isActive
-                  ? { fontWeight: "bold", color: "white" }
-                  : { color: "white" }
-              }
-            >
-              {folder.name}
-            </NavLink>
+            <FolderLink folder={folder} />
           </li>
         ))}
       </ul>
