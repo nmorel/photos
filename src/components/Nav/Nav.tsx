@@ -31,10 +31,10 @@ function FolderLink({ folder }: { folder: Folder }) {
   );
 }
 
-function NewFolderForm({ onClose }: { onClose: () => void }) {
+function CreateFolderForm({ onClose }: { onClose: () => void }) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const mutation = useMutation((name: string) => {
+  const createFolderMutation = useMutation((name: string) => {
     return addFolder(name);
   });
   return (
@@ -45,7 +45,7 @@ function NewFolderForm({ onClose }: { onClose: () => void }) {
 
         const formElement = evt.target as HTMLFormElement;
         const formData = new FormData(formElement);
-        mutation.mutate(formData.get("name") as string, {
+        createFolderMutation.mutate(formData.get("name") as string, {
           onSuccess(folder) {
             onClose();
             queryClient.invalidateQueries(["folders"]);
@@ -54,9 +54,10 @@ function NewFolderForm({ onClose }: { onClose: () => void }) {
         });
       }}
     >
-      {mutation.isError && (
+      {createFolderMutation.isError && (
         <p style={{ color: "red" }}>
-          An error occured : {(mutation.error as Error)?.toString?.()}
+          An error occured :{" "}
+          {(createFolderMutation.error as Error)?.toString?.()}
         </p>
       )}
       <label>
@@ -66,7 +67,7 @@ function NewFolderForm({ onClose }: { onClose: () => void }) {
         <button type="button" onClick={() => onClose()}>
           Cancel
         </button>
-        <button type="submit" disabled={mutation.isLoading}>
+        <button type="submit" disabled={createFolderMutation.isLoading}>
           Add
         </button>
       </footer>
@@ -110,7 +111,7 @@ export function Nav({ folders }: { folders: Folder[] }) {
           },
         }}
       >
-        <NewFolderForm onClose={() => setIsOpen(false)} />
+        <CreateFolderForm onClose={() => setIsOpen(false)} />
       </ReactModal>
     </nav>
   );

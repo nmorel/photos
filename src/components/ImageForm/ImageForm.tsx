@@ -7,7 +7,7 @@ import { Folder } from "../../types";
 
 export function ImageForm({ folder }: { folder: Folder }) {
   const queryClient = useQueryClient();
-  const mutation = useMutation(
+  const addPhotoMutation = useMutation(
     async ({
       imageFile,
       folder: destFolder,
@@ -54,7 +54,7 @@ export function ImageForm({ folder }: { folder: Folder }) {
 
     const formElement = evt.target as HTMLFormElement;
     const formData = new FormData(formElement);
-    mutation.mutate(
+    addPhotoMutation.mutate(
       {
         imageFile: formData.get("image") as File,
         folder,
@@ -70,9 +70,9 @@ export function ImageForm({ folder }: { folder: Folder }) {
 
   return (
     <form onSubmit={onSubmit}>
-      {mutation.isError && (
+      {addPhotoMutation.isError && (
         <p style={{ color: "red" }}>
-          An error occured : {(mutation.error as Error)?.toString?.()}
+          An error occured : {(addPhotoMutation.error as Error)?.toString?.()}
         </p>
       )}
       <label>
@@ -85,7 +85,7 @@ export function ImageForm({ folder }: { folder: Folder }) {
           style={{ margin: "0 1rem" }}
         />
       </label>
-      <button type="submit" disabled={mutation.isLoading}>
+      <button type="submit" disabled={addPhotoMutation.isLoading}>
         Upload
       </button>
     </form>

@@ -23,7 +23,7 @@ function App() {
   const foldersQuery = useQuery(["folders"], getFolders);
   const [activePhoto, setActivePhoto] = useState<Photo | null>(null);
   const queryClient = useQueryClient();
-  const mutation = useMutation(
+  const movePhotoMutation = useMutation(
     ({
       photoId,
       prevFolderId,
@@ -52,7 +52,11 @@ function App() {
     const prevFolderId = (active.data.current as Photo).folder;
     const folderId = over.id as string;
 
-    mutation.mutate(
+    if (prevFolderId === folderId) {
+      return;
+    }
+
+    movePhotoMutation.mutate(
       { photoId, prevFolderId, folderId },
       {
         onSuccess() {
