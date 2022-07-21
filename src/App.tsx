@@ -1,23 +1,23 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { Folder } from "./components/Folder/Folder";
-import { getFolders, movePhotoToFolder } from "./storage";
-import { Nav } from "./components/Nav";
 import {
   DndContext,
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
 } from "@dnd-kit/core";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Photo } from "./types";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import "./App.css";
+import { Folder } from "./components/Folder";
 import { Image } from "./components/Image";
+import { Nav } from "./components/Nav";
+import { getFolders, movePhotoToFolder } from "./storage";
+import { Photo } from "./types";
 
 function App() {
   const foldersQuery = useQuery(["folders"], getFolders);

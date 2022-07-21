@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FormEventHandler } from "react";
 import loadImage from "blueimp-load-image";
+import { FormEventHandler } from "react";
 import { API_KEY, API_URL, BASE64_IMAGE_HEADER } from "../../constants";
-import { Folder } from "../../types";
 import { addPhotoToFolder } from "../../storage";
+import { Folder } from "../../types";
 
 export function ImageForm({ folder }: { folder: Folder }) {
   const queryClient = useQueryClient();
